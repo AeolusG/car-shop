@@ -4,39 +4,91 @@
   <div class="content-wrapper">
     <div class="search-wrapper">
       <div class="divider">
-        <div class="input-wrapper">
-          <input type="text" placeholder="Search VIN" />
-        </div>
+        <form class="input-wrapper" @input.prevent="search">
+          <input v-model="vin" type="text" placeholder="Search VIN" />
+        </form>
         <div class="select-wrapper">
           <div class="text">Select vehicles per page:</div>
-          <TheSelect class="select" :options="options" @get-value="getNumber" />
+          <TheSelect
+            class="select"
+            :options="options"
+            @get-value="getNumber"
+            @click="loadItemsPerPage(page, totalPerPage)"
+          />
         </div>
       </div>
-      <button class="button">ADD VEHICLE</button>
+      <button @click="changeVisibility" class="button">ADD VEHICLE</button>
+      <TheModalWindow @close-modal-window="changeVisibility" v-if="isVisible" />
     </div>
     <div class="cards-container">
-      <TheCard v-for="time in times" :key="time.value" />
+      <TheCard
+        :vehicleName="car.vehicle_name"
+        :vin="car.vin"
+        :photosCount="car.photos_count"
+        :photo="car.photo?.url"
+        v-for="car in list"
+        :key="car.id"
+      />
     </div>
     <div class="content-footer">
-      <div class="footer-info">Showing {{ times }} out of 256</div>
+      <div class="footer-info">
+        Showing {{ totalPerPage }} out of {{ totalCount }}
+      </div>
       <div class="pagination">
-        <img src="./assets/images/chevron_left.svg" />
-        <p class="first-page">1</p>
+        <button
+          class="pagination-btn"
+          @click="page--, loadItemsPerPage(page, totalPerPage)"
+        >
+          <img src="./assets/images/chevron_left.svg" />
+        </button>
+        <p class="first-page">{{ page }}</p>
         <p>of</p>
-        <p class="last-page">28</p>
-        <img src="./assets/images/chevron_right.svg" />
+        <p class="last-page">{{ countPages }}</p>
+        <button
+          class="pagination-btn"
+          @click="page++, loadItemsPerPage(page, totalPerPage)"
+        >
+          <img src="./assets/images/chevron_right.svg" />
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-let times = ref(3);
+import useCars from './composables/useCars';
+
+const {
+  search,
+  list,
+  vin,
+  error,
+  fetching,
+  totalCount,
+  loadItemsPerPage,
+  getTotalCount,
+} = useCars();
+
+getTotalCount();
+loadItemsPerPage(1, 3);
+let page = 1;
+
+let totalPerPage = ref(3);
+
+const countPages = computed(() => {
+  return Math.ceil(totalCount.value / totalPerPage.value);
+});
+function getNumber(value) {
+  totalPerPage.value = value;
+}
+
+let isVisible = ref(false);
+
+function changeVisibility() {
+  isVisible.value = !isVisible.value;
+}
 
 const options = ref([{ name: 3 }, { name: 6 }, { name: 9 }, { name: 12 }]);
-function getNumber(value) {
-  times.value = value;
-}
 </script>
 
 <style lang="scss" scoped>
@@ -110,6 +162,20 @@ input::placeholder {
   background-position-x: 10px;
   margin-bottom: 30px;
   cursor: grab;
+}
+.button:hover {
+  background-color: rgb(179, 11, 41);
+}
+.pagination-btn {
+  border: none;
+  background: none;
+  cursor: grab;
+}
+.pagination-btn:hover {
+  opacity: 0.5;
+}
+.pagination-btn:active {
+  opacity: 1;
 }
 .cards-container {
   display: flex;

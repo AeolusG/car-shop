@@ -7,19 +7,59 @@
         <img src="../assets/images/dot.svg" />
       </button>
     </div>
-    <img src="../assets/images/mersedes 1.png" />
-    <h2 class="card-title">Mercedes-Benz C-Class</h2>
-    <h3 class="card-subtitle">WDB 1400321A333419</h3>
+    <img class="car-image" :src="setImage" />
+    <h2 class="card-title">{{ setTitle }}</h2>
+    <h3 class="card-subtitle">{{ vin }}</h3>
     <div class="divider"></div>
     <div class="card-footer">
       <div class="count">
         <img src="../assets/images/Vector.svg" />
-        <p>30/30</p>
+        <p>{{ photosCount }}/30</p>
       </div>
       <div class="remain">3 days left</div>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  props: {
+    vehicleName: {
+      type: String,
+      default: null,
+    },
+    vin: {
+      type: String,
+      default: null,
+    },
+    photo: {
+      type: String,
+      default: null,
+    },
+    photosCount: {
+      type: Number,
+      default: null,
+    },
+  },
+  setup(props) {
+    const defaultImage = ref('/_nuxt/assets/images/mersedes 1.png');
+    const defaultTitle = ref('Транспортное средство');
+
+    const setImage = computed(() => {
+      return props.photo ?? defaultImage.value;
+    });
+
+    const setTitle = computed(() => {
+      return props.vehicleName ?? defaultTitle.value;
+    });
+    return {
+      defaultImage,
+      setImage,
+      setTitle,
+    };
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 .card-wrapper {
@@ -53,6 +93,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.car-image {
+  width: 260px;
+  height: 135px;
 }
 .count {
   font-family: 'DMSans', sans-serif;

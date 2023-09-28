@@ -1,16 +1,17 @@
 import { setBlockTracking } from 'nuxt/dist/app/compat/capi';
 <template>
-  <nav class="sidenav" @click="changeWidth">
+  <nav class="sidenav">
     <h1 class="title">Demo Test</h1>
-    <a href="#profile">
+    <a href="">
       <img src="../assets/images/user.svg" alt="profile" />
       <span class="visibility">Profile</span></a
     >
-    <a href="#vehicles" class="active">
+
+    <a href="" class="active">
       <img src="../assets/images/rim.svg" alt="vehicles" />
       <span class="visibility">Vehicles</span>
     </a>
-    <a href="#setting">
+    <a href="">
       <img src="../assets/images/settings.svg" alt="vehicles" />
       <span class="visibility">Setting</span>
     </a>
