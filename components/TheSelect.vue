@@ -2,7 +2,7 @@
   <div class="select">
     <slot name="image"></slot>
     <div class="choice">
-      <div class="chosen-item">{{ currentValue }}</div>
+      <div class="chosen-item">{{ defaultOption }}</div>
       <div class="options" v-if="isVisible">
         <div
           class="option"
@@ -28,10 +28,13 @@ export default {
       type: Array,
       default: [],
     },
+    defaultOption: {
+      type: String,
+      default: null,
+    },
   },
   data() {
     return {
-      currentValue: this.options[0].name,
       isVisible: false,
     };
   },

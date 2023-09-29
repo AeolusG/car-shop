@@ -2,7 +2,7 @@
   <div class="wrapper">
     <div class="title">
       <h1>Vehicles</h1>
-      <div class="number">256</div>
+      <div class="number">{{ totalCount }}</div>
     </div>
     <div class="user">
       <button class="btn">
@@ -11,45 +11,49 @@
       <div class="user-info">
         <img src="../assets/images/johndoe.svg" /> <span>John Doe</span>
       </div>
-      <TheSelect :options="options" @get-value="getValue">
+      <TheSelect
+        :defaultOption="option"
+        :options="optionsLang"
+        @get-value="getValue"
+      >
         <template v-slot:image>
-          <img
-            v-if="option === 'en'"
-            class="language-img"
-            src="../assets/images/en.svg"
-          />
-          <img
-            v-if="option === 'us'"
-            class="language-img"
-            src="../assets/images/us.svg"
-          />
-          <img
-            v-if="option === 'de'"
-            class="language-img"
-            src="../assets/images/de.svg"
-          />
-          <img
-            v-if="option === 'pt'"
-            class="language-img"
-            src="../assets/images/pt.svg"
-          />
+          <img class="language-img" :src="setImage" alt="flag" />
         </template>
       </TheSelect>
     </div>
   </div>
 </template>
 
-<script setup>
-let option = 'en';
-const options = ref([
-  { name: 'En' },
-  { name: 'Pt' },
-  { name: 'Us' },
-  { name: 'De' },
-]);
-function getValue(value) {
-  option = value.toLowerCase();
-}
+<script>
+export default {
+  props: {
+    totalCount: {
+      type: String,
+      default: null,
+    },
+  },
+  setup() {
+    let option = ref('En');
+    const optionsLang = ref([
+      { name: 'En' },
+      { name: 'Pt' },
+      { name: 'Us' },
+      { name: 'De' },
+    ]);
+    function getValue(value) {
+      option.value = value;
+    }
+    const setImage = computed(() => {
+      return `/_nuxt/assets/images/${option.value}.svg`;
+    });
+    return {
+      option,
+      optionsLang,
+      getValue,
+      setImage,
+    };
+  },
+};
 </script>
 
 <style lang="scss" scoped>

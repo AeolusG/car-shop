@@ -1,8 +1,8 @@
 <template>
   <TheNavigation />
-  <TheHeader />
+  <TheHeader :totalCount="totalCount" />
   <div class="content-wrapper">
-    <div class="search-wrapper">
+    <div v-if="!error" class="search-wrapper">
       <div class="divider">
         <form class="input-wrapper" @input.prevent="search">
           <input v-model="vin" type="text" placeholder="Search VIN" />
@@ -11,6 +11,7 @@
           <div class="text">Select vehicles per page:</div>
           <TheSelect
             class="select"
+            :defaultOption="totalPerPage"
             :options="options"
             @get-value="getNumber"
             @click="loadItemsPerPage(page, totalPerPage)"
@@ -19,6 +20,11 @@
       </div>
       <button @click="changeVisibility" class="button">ADD VEHICLE</button>
       <TheModalWindow @close-modal-window="changeVisibility" v-if="isVisible" />
+    </div>
+    <div class="error-wrapper" v-if="error">
+      <h2>Something Went Wrong</h2>
+      <h3>Sorry we ran into a problem</h3>
+      <img src="./assets/images/error.png" />
     </div>
     <div class="cards-container">
       <TheCard
@@ -30,7 +36,7 @@
         :key="car.id"
       />
     </div>
-    <div class="content-footer">
+    <div v-if="!error" class="content-footer">
       <div class="footer-info">
         Showing {{ totalPerPage }} out of {{ totalCount }}
       </div>
@@ -39,7 +45,7 @@
           class="pagination-btn"
           @click="page--, loadItemsPerPage(page, totalPerPage)"
         >
-          <img src="./assets/images/chevron_left.svg" />
+          <img src="./assets/images/chevron_left.svg" alt="arrow left" />
         </button>
         <p class="first-page">{{ page }}</p>
         <p>of</p>
@@ -48,7 +54,7 @@
           class="pagination-btn"
           @click="page++, loadItemsPerPage(page, totalPerPage)"
         >
-          <img src="./assets/images/chevron_right.svg" />
+          <img src="./assets/images/chevron_right.svg" alt="arrow right" />
         </button>
       </div>
     </div>
@@ -63,7 +69,6 @@ const {
   list,
   vin,
   error,
-  fetching,
   totalCount,
   loadItemsPerPage,
   getTotalCount,
@@ -73,13 +78,13 @@ getTotalCount();
 loadItemsPerPage(1, 3);
 let page = 1;
 
-let totalPerPage = ref(3);
+let totalPerPage = ref('3');
 
 const countPages = computed(() => {
-  return Math.ceil(totalCount.value / totalPerPage.value);
+  return Math.ceil(totalCount.value / Number(totalPerPage.value));
 });
 function getNumber(value) {
-  totalPerPage.value = value;
+  totalPerPage.value = value.toString();
 }
 
 let isVisible = ref(false);
@@ -93,6 +98,28 @@ const options = ref([{ name: 3 }, { name: 6 }, { name: 9 }, { name: 12 }]);
 
 <style lang="scss" scoped>
 @import 'assets/fonts/fonts.css';
+.error-wrapper {
+  text-align: center;
+  margin: 40px;
+  margin-top: 100px;
+  h2 {
+    font-family: 'DMSans', sans-serif;
+    font-size: 34px;
+    font-weight: 700;
+    margin: 20px 20px;
+    color: rgb(41, 49, 72);
+  }
+  h3 {
+    font-family: 'DMSans', sans-serif;
+    font-size: 25px;
+    font-weight: 700;
+    margin: 20px 20px;
+    color: rgb(41, 49, 72);
+  }
+  img {
+    width: 500px;
+  }
+}
 .content-wrapper {
   margin-left: 300px;
   margin-top: 30px;

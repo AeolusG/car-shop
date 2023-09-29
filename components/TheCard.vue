@@ -2,9 +2,9 @@
   <div class="card-wrapper">
     <div class="dots">
       <button>
-        <img src="../assets/images/dot.svg" />
-        <img src="../assets/images/dot.svg" />
-        <img src="../assets/images/dot.svg" />
+        <img src="../assets/images/dot.svg" alt="dot" />
+        <img src="../assets/images/dot.svg" alt="dot" />
+        <img src="../assets/images/dot.svg" alt="dot" />
       </button>
     </div>
     <img class="car-image" :src="setImage" />
@@ -12,8 +12,8 @@
     <h3 class="card-subtitle">{{ vin }}</h3>
     <div class="divider"></div>
     <div class="card-footer">
-      <div class="count">
-        <img src="../assets/images/Vector.svg" />
+      <div :class="setClass">
+        <img src="../assets/images/Vector.svg" alt="check mark" />
         <p>{{ photosCount }}/30</p>
       </div>
       <div class="remain">3 days left</div>
@@ -52,10 +52,16 @@ export default {
     const setTitle = computed(() => {
       return props.vehicleName ?? defaultTitle.value;
     });
+    const setClass = computed(() => {
+      console.log(typeof props.photosCount);
+      return props.photosCount < 30 ? 'greyTile' : 'greenTile';
+    });
+
     return {
       defaultImage,
       setImage,
       setTitle,
+      setClass,
     };
   },
 };
@@ -98,7 +104,7 @@ export default {
   width: 260px;
   height: 135px;
 }
-.count {
+.greenTile {
   font-family: 'DMSans', sans-serif;
   font-size: 15px;
   font-weight: 700;
@@ -111,6 +117,25 @@ export default {
   padding: 5px 10px;
   img {
     margin-right: 10px;
+  }
+  p {
+    margin: 0;
+  }
+}
+.greyTile {
+  font-family: 'DMSans', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 22px;
+  text-align: center;
+  color: rgba(41, 49, 72, 0.8);
+  background-color: rgba(237, 237, 237, 1);
+
+  border-radius: 6px;
+  display: flex;
+  padding: 5px 10px;
+  img {
+    display: none;
   }
   p {
     margin: 0;

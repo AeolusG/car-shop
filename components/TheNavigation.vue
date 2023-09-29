@@ -1,4 +1,3 @@
-import { setBlockTracking } from 'nuxt/dist/app/compat/capi';
 <template>
   <nav class="sidenav">
     <h1 class="title">Demo Test</h1>
@@ -39,6 +38,9 @@ import { setBlockTracking } from 'nuxt/dist/app/compat/capi';
   background-color: #282828;
   overflow-x: hidden;
   padding-top: 20px;
+  background-image: url('../assets/images/waves.svg');
+  background-repeat: no-repeat;
+  background-position-y: bottom;
   img {
     padding-right: 10px;
   }
