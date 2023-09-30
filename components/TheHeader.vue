@@ -28,18 +28,20 @@
 export default {
   props: {
     totalCount: {
-      type: String,
+      type: Number,
       default: null,
     },
   },
   setup() {
     let option = ref('En');
+
     const optionsLang = ref([
       { name: 'En' },
       { name: 'Pt' },
       { name: 'Us' },
       { name: 'De' },
     ]);
+
     function getValue(value) {
       option.value = value;
     }

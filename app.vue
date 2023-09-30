@@ -19,13 +19,14 @@
         </div>
       </div>
       <button @click="changeVisibility" class="button">ADD VEHICLE</button>
-      <TheModalWindow @close-modal-window="changeVisibility" v-if="isVisible" />
+      <TheModalWindow
+        @close-modal-window="changeVisibility(isVisible)"
+        v-if="isVisible"
+      />
     </div>
-    <div class="error-wrapper" v-if="error">
-      <h2>Something Went Wrong</h2>
-      <h3>Sorry we ran into a problem</h3>
-      <img src="./assets/images/error.png" />
-    </div>
+    <TheError :error="error" />
+    <TheFetching :fetching="fetching" />
+    <div class="no-data" v-if="!hasData">Nothing was found on your request</div>
     <div class="cards-container">
       <TheCard
         :vehicleName="car.vehicle_name"
@@ -43,16 +44,17 @@
       <div class="pagination">
         <button
           class="pagination-btn"
-          @click="page--, loadItemsPerPage(page, totalPerPage)"
+          @click="decrease(page), loadItemsPerPage(page, totalPerPage)"
         >
           <img src="./assets/images/chevron_left.svg" alt="arrow left" />
         </button>
+
         <p class="first-page">{{ page }}</p>
         <p>of</p>
         <p class="last-page">{{ countPages }}</p>
         <button
           class="pagination-btn"
-          @click="page++, loadItemsPerPage(page, totalPerPage)"
+          @click="increase(page), loadItemsPerPage(page, totalPerPage)"
         >
           <img src="./assets/images/chevron_right.svg" alt="arrow right" />
         </button>
@@ -70,21 +72,36 @@ const {
   vin,
   error,
   totalCount,
+  fetching,
   loadItemsPerPage,
   getTotalCount,
+  hasData,
 } = useCars();
 
 getTotalCount();
 loadItemsPerPage(1, 3);
-let page = 1;
+
+let page = ref(1);
 
 let totalPerPage = ref('3');
 
 const countPages = computed(() => {
   return Math.ceil(totalCount.value / Number(totalPerPage.value));
 });
+
 function getNumber(value) {
   totalPerPage.value = value.toString();
+
+  if (page.value > countPages.value) {
+    page.value = countPages.value;
+  }
+}
+
+function decrease(pageNum) {
+  page.value = pageNum <= 1 ? pageNum : page.value - 1;
+}
+function increase(pageNum) {
+  page.value = pageNum >= countPages.value ? pageNum : page.value + 1;
 }
 
 let isVisible = ref(false);
@@ -98,28 +115,7 @@ const options = ref([{ name: 3 }, { name: 6 }, { name: 9 }, { name: 12 }]);
 
 <style lang="scss" scoped>
 @import 'assets/fonts/fonts.css';
-.error-wrapper {
-  text-align: center;
-  margin: 40px;
-  margin-top: 100px;
-  h2 {
-    font-family: 'DMSans', sans-serif;
-    font-size: 34px;
-    font-weight: 700;
-    margin: 20px 20px;
-    color: rgb(41, 49, 72);
-  }
-  h3 {
-    font-family: 'DMSans', sans-serif;
-    font-size: 25px;
-    font-weight: 700;
-    margin: 20px 20px;
-    color: rgb(41, 49, 72);
-  }
-  img {
-    width: 500px;
-  }
-}
+
 .content-wrapper {
   margin-left: 300px;
   margin-top: 30px;
@@ -149,6 +145,14 @@ const options = ref([{ name: 3 }, { name: 6 }, { name: 9 }, { name: 12 }]);
   display: flex;
   margin-bottom: 30px;
 }
+.no-data {
+  font-family: 'DMSans', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 22px;
+  text-align: left;
+  color: rgba(41, 49, 72, 1);
+}
 .input-wrapper {
   margin-right: 20px;
 }
@@ -156,7 +160,7 @@ input {
   background-image: url('assets/images/zoom.svg');
   background-repeat: no-repeat;
   background-position-y: center;
-  background-position: 280px;
+  background-position: 260px;
   border: 1px solid rgba(228, 228, 228, 1);
   border-radius: 8px;
   padding: 10px 10px;

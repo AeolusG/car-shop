@@ -3,8 +3,9 @@ export default function (url) {
     carsList: [],
     totalCount: null,
     error: null,
-    // fetching: false,
+    fetching: true,
   });
+
   const fetchData = async () => {
     state.fetching = true;
     try {
@@ -14,10 +15,10 @@ export default function (url) {
       state.totalCount = json.meta.total;
     } catch (errors) {
       state.error = errors;
+    } finally {
+      state.fetching = false;
     }
-    // finally {
-    //   state.fetching = false;
-    // }
   };
+
   return { ...toRefs(state), fetchData };
 }

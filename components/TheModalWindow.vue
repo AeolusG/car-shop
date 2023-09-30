@@ -6,7 +6,9 @@
         <input class="input" type="text" placeholder="Enter the name" />
         <label class="label">Enter VIN</label>
         <input class="input" type="text" placeholder="Enter VIN" />
-        <button @click="closeModalWindow" class="submit-button">ADD!</button>
+        <button type="button" @click="closeModalWindow" class="submit-button">
+          ADD!
+        </button>
       </form>
     </div>
   </div>
@@ -14,12 +16,12 @@
 
 <script>
 export default {
-  emits: ['closeModalWindow'],
   setup({ emit }) {
-    let isVisible = ref(true);
+    let isVisible = ref(false);
 
     function closeModalWindow() {
-      emit('closeModalWindow', isVisible);
+      // не емитится
+      emit('closeModalWindow');
     }
 
     return {

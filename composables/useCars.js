@@ -5,6 +5,8 @@ export default function () {
     list: [],
     error: null,
     totalCount: null,
+    hasData: true,
+    fetching: true,
   });
   const vin = ref('');
   const getTotalCount = async () => {
@@ -17,21 +19,24 @@ export default function () {
     return cars.totalCount;
   };
   const search = async () => {
-    const { carsList, error, fetchData } = useCustomFetch(
+    const { carsList, error, fetchData, fetching } = useCustomFetch(
       `https://api.caiman-app.de/api/cars-test?search=${vin.value}`
     );
     await fetchData();
     cars.list = carsList;
+    cars.hasData = !!cars.list.length;
     cars.error = error;
+    cars.fetching = fetching;
     return cars.list;
   };
   const loadItemsPerPage = async (num = 1, total = 3) => {
-    const { carsList, error, fetchData } = useCustomFetch(
+    const { carsList, error, fetchData, fetching } = useCustomFetch(
       `https://api.caiman-app.de/api/cars-test?search=${vin.value}&per_page=${total}&page=${num}`
     );
     await fetchData();
     cars.list = carsList;
     cars.error = error;
+    cars.fetching = fetching;
     return cars.list;
   };
   return {

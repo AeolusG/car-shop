@@ -53,7 +53,6 @@ export default {
       return props.vehicleName ?? defaultTitle.value;
     });
     const setClass = computed(() => {
-      console.log(typeof props.photosCount);
       return props.photosCount < 30 ? 'greyTile' : 'greenTile';
     });
 
