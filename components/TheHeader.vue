@@ -5,9 +5,17 @@
       <div class="number">{{ totalCount }}</div>
     </div>
     <div class="user">
-      <button class="btn">
+      <button @click="changeVisibility" class="btn">
         <img src="../assets/images/Default.svg" alt="btn image" />
       </button>
+      <TheModalWindow
+        :isVisible="isVisible"
+        :name="userInfo"
+        :idInfo="idInfo"
+        @close-modal-window="changeVisibility(isVisible)"
+        @close-modal-window-by-cross="changeVisibility(isVisible)"
+        v-if="isVisible"
+      />
       <div class="user-info">
         <img src="../assets/images/johndoe.svg" /> <span>John Doe</span>
       </div>
@@ -45,14 +53,26 @@ export default {
     function getValue(value) {
       option.value = value;
     }
+    let isVisible = ref(false);
+    const userInfo = "Enter the user's name";
+    const idInfo = "Enter the user's id";
+
+    function changeVisibility() {
+      isVisible.value = !isVisible.value;
+    }
     const setImage = computed(() => {
       return `/_nuxt/assets/images/${option.value}.svg`;
     });
+
     return {
       option,
       optionsLang,
       getValue,
       setImage,
+      changeVisibility,
+      isVisible,
+      userInfo,
+      idInfo,
     };
   },
 };
@@ -61,9 +81,11 @@ export default {
 <style lang="scss" scoped>
 @import '../assets/fonts/fonts.css';
 .wrapper {
-  margin-left: 260px;
   display: flex;
   justify-content: space-between;
+
+  margin-left: 260px;
+
   border-bottom: solid 1px rgba(228, 228, 228, 1);
 }
 .title {
@@ -77,12 +99,15 @@ export default {
     color: rgba(41, 49, 72, 1);
   }
   .number {
+    padding: 5px 14px;
+
     background-color: rgb(243, 246, 248);
+
     font-size: 15px;
     font-weight: 700;
     color: rgba(41, 49, 72, 0.8);
     font-family: 'DMSans', sans-serif;
-    padding: 5px 14px;
+
     border-radius: 6px;
   }
 }
@@ -91,6 +116,7 @@ export default {
   .user-info {
     display: flex;
     align-items: center;
+
     margin-right: 40px;
     img {
       margin-right: 20px;
@@ -103,10 +129,14 @@ export default {
     }
   }
   .btn {
+    margin-right: 40px;
+
     border: none;
     background: none;
     cursor: grab;
-    margin-right: 40px;
+  }
+  .btn:hover {
+    opacity: 0.5;
   }
   .language-img {
     margin-right: 20px;
@@ -114,17 +144,21 @@ export default {
 }
 @media (min-width: 768px) and (max-width: 991px) {
   .wrapper {
-    margin-left: 100px;
     display: flex;
     justify-content: space-between;
+
+    margin-left: 100px;
+
     border-bottom: none;
   }
 }
 @media (max-width: 767px) {
   .wrapper {
-    margin-left: 100px;
     display: flex;
     justify-content: space-between;
+
+    margin-left: 100px;
+
     border-bottom: none;
   }
 }

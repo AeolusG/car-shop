@@ -68,11 +68,12 @@ export default {
 
 <style lang="scss" scoped>
 .card-wrapper {
+  padding: 30px 30px 10px 35px;
+  margin-bottom: 30px;
+
   background: rgba(243, 246, 248, 1);
   border-radius: 10px;
   width: fit-content;
-  padding: 30px 30px 10px 35px;
-  margin-bottom: 30px;
 }
 .card-title {
   font-family: 'DMSans', sans-serif;
@@ -104,16 +105,20 @@ export default {
   height: 135px;
 }
 .greenTile {
+  display: flex;
+
+  padding: 5px 10px;
+
+  background-color: rgba(228, 245, 221, 1);
+  border-radius: 6px;
+
   font-family: 'DMSans', sans-serif;
   font-size: 15px;
   font-weight: 700;
   line-height: 22px;
   text-align: center;
   color: rgba(127, 199, 94, 1);
-  background-color: rgba(228, 245, 221, 1);
-  border-radius: 6px;
-  display: flex;
-  padding: 5px 10px;
+
   img {
     margin-right: 10px;
   }
@@ -122,17 +127,20 @@ export default {
   }
 }
 .greyTile {
+  display: flex;
+
+  padding: 5px 10px;
+
   font-family: 'DMSans', sans-serif;
   font-size: 15px;
   font-weight: 700;
   line-height: 22px;
   text-align: center;
   color: rgba(41, 49, 72, 0.8);
-  background-color: rgba(237, 237, 237, 1);
 
+  background-color: rgba(237, 237, 237, 1);
   border-radius: 6px;
-  display: flex;
-  padding: 5px 10px;
+
   img {
     display: none;
   }
@@ -151,6 +159,7 @@ export default {
 .dots {
   display: flex;
   justify-content: flex-end;
+
   margin-bottom: 15px;
   button {
     border: none;

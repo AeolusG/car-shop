@@ -20,7 +20,11 @@
       </div>
       <button @click="changeVisibility" class="button">ADD VEHICLE</button>
       <TheModalWindow
+        :isVisible="isVisible"
+        :name="vehicleInfo"
+        :idInfo="idInfo"
         @close-modal-window="changeVisibility(isVisible)"
+        @close-modal-window-by-cross="changeVisibility(isVisible)"
         v-if="isVisible"
       />
     </div>
@@ -82,7 +86,6 @@ getTotalCount();
 loadItemsPerPage(1, 3);
 
 let page = ref(1);
-
 let totalPerPage = ref('3');
 
 const countPages = computed(() => {
@@ -105,6 +108,8 @@ function increase(pageNum) {
 }
 
 let isVisible = ref(false);
+const vehicleInfo = 'Enter the name of the vehicle';
+const idInfo = 'Enter VIN';
 
 function changeVisibility() {
   isVisible.value = !isVisible.value;
@@ -117,10 +122,11 @@ const options = ref([{ name: 3 }, { name: 6 }, { name: 9 }, { name: 12 }]);
 @import 'assets/fonts/fonts.css';
 
 .content-wrapper {
+  position: relative;
+
   margin-left: 300px;
   margin-top: 30px;
   margin-right: 30px;
-  position: relative;
 }
 .search-wrapper {
   display: flex;
@@ -129,6 +135,7 @@ const options = ref([{ name: 3 }, { name: 6 }, { name: 9 }, { name: 12 }]);
 }
 .select-wrapper {
   display: flex;
+
   font-family: 'DMSans', sans-serif;
   font-size: 16px;
   font-weight: 400;
@@ -137,12 +144,14 @@ const options = ref([{ name: 3 }, { name: 6 }, { name: 9 }, { name: 12 }]);
   align-items: center;
 }
 .select {
+  padding-left: 10px;
+
   border: 1px solid rgba(228, 228, 228, 1);
   border-radius: 8px;
-  padding-left: 10px;
 }
 .divider {
   display: flex;
+
   margin-bottom: 30px;
 }
 .no-data {
@@ -150,8 +159,9 @@ const options = ref([{ name: 3 }, { name: 6 }, { name: 9 }, { name: 12 }]);
   font-size: 20px;
   font-weight: 700;
   line-height: 22px;
-  text-align: left;
   color: rgba(41, 49, 72, 1);
+
+  text-align: left;
 }
 .input-wrapper {
   margin-right: 20px;
@@ -161,10 +171,12 @@ input {
   background-repeat: no-repeat;
   background-position-y: center;
   background-position: 260px;
-  border: 1px solid rgba(228, 228, 228, 1);
-  border-radius: 8px;
+
   padding: 10px 10px;
   width: 300px;
+
+  border: 1px solid rgba(228, 228, 228, 1);
+  border-radius: 8px;
   outline: none;
 }
 input::placeholder {
@@ -177,22 +189,24 @@ input::placeholder {
   margin-right: 10px;
 }
 .button {
+  padding: 10px 40px;
+  margin-bottom: 30px;
+
   border: none;
   background-color: rgb(217, 14, 50);
   background-repeat: no-repeat;
   border-radius: 10px;
   background-image: url('assets/images/plus.svg');
+  background-position-y: center;
+  background-position-x: 10px;
   box-shadow: 0px 8px 24px 0px rgba(217, 14, 50, 0.12);
+  cursor: grab;
+
   font-family: 'DMSans', sans-serif;
   font-size: 12px;
   font-weight: 700;
   line-height: 20px;
   color: rgb(255, 255, 255);
-  padding: 10px 40px;
-  background-position-y: center;
-  background-position-x: 10px;
-  margin-bottom: 30px;
-  cursor: grab;
 }
 .button:hover {
   background-color: rgb(179, 11, 41);
@@ -212,6 +226,7 @@ input::placeholder {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+
   margin-bottom: 30px;
 }
 .content-footer {
@@ -230,6 +245,7 @@ input::placeholder {
 }
 .pagination {
   display: flex;
+
   font-family: 'DMSans', sans-serif;
   font-size: 15px;
   font-weight: 400;
@@ -253,20 +269,24 @@ input::placeholder {
 }
 @media (min-width: 768px) and (max-width: 991px) {
   .content-wrapper {
+    position: relative;
+
     margin-left: 160px;
     margin-top: 30px;
     margin-right: 30px;
-    position: relative;
   }
   input {
+    padding: 10px 10px;
+    width: 160px;
+
     background-image: url('assets/images/zoom.svg');
     background-repeat: no-repeat;
     background-position-y: center;
     background-position: 280px;
+
     border: 1px solid rgba(228, 228, 228, 1);
     border-radius: 8px;
-    padding: 10px 10px;
-    width: 160px;
+
     outline: none;
   }
   .button {
@@ -280,20 +300,23 @@ input::placeholder {
 }
 @media (max-width: 768px) {
   .content-wrapper {
+    position: relative;
+
     margin-left: 250px;
     margin-top: 30px;
     margin-right: 30px;
-    position: relative;
   }
   input {
+    padding: 10px 10px;
+    width: 160px;
+
     background-image: url('assets/images/zoom.svg');
     background-repeat: no-repeat;
     background-position-y: center;
     background-position: 280px;
     border: 1px solid rgba(228, 228, 228, 1);
     border-radius: 8px;
-    padding: 10px 10px;
-    width: 160px;
+
     outline: none;
   }
   .button {
@@ -305,8 +328,9 @@ input::placeholder {
     flex-wrap: wrap;
   }
   .divider {
-    display: flex;
     margin-bottom: 30px;
+
+    display: flex;
     flex-wrap: wrap;
     justify-content: center;
   }
@@ -318,5 +342,11 @@ input::placeholder {
     flex-wrap: wrap;
     justify-content: center;
   }
+}
+</style>
+
+<style>
+body {
+  min-width: 768px;
 }
 </style>

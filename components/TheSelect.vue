@@ -63,10 +63,12 @@ export default {
 .options {
   display: block;
   position: absolute;
-  background-color: white;
-  z-index: 1;
+
   width: 60px;
   margin-left: -10px;
+
+  background-color: white;
+  z-index: 1;
 }
 .option {
   margin-bottom: 10px;
@@ -78,8 +80,9 @@ export default {
   cursor: grab;
 }
 .choice {
-  display: block;
   margin-top: 5px;
+
+  display: block;
   .chosen-item {
     margin-bottom: 10px;
   }
@@ -87,7 +90,9 @@ export default {
 .select {
   display: flex;
   align-items: center;
+
   margin-right: 40px;
+
   font-family: 'DMSans', sans-serif;
   font-size: 15px;
   font-weight: 500;

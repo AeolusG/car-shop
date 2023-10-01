@@ -1,19 +1,19 @@
 <template>
   <nav class="sidenav">
     <h1 class="title">Demo Test</h1>
-    <a href="">
+    <button type="button">
       <img src="../assets/images/user.svg" alt="profile" />
-      <span class="visibility">Profile</span></a
-    >
+      <span class="visibility">Profile</span>
+    </button>
 
-    <a href="" class="active">
+    <button type="button" class="active">
       <img src="../assets/images/rim.svg" alt="vehicles" />
       <span class="visibility">Vehicles</span>
-    </a>
-    <a href="">
+    </button>
+    <button type="button">
       <img src="../assets/images/settings.svg" alt="vehicles" />
       <span class="visibility">Setting</span>
-    </a>
+    </button>
   </nav>
 </template>
 
@@ -44,28 +44,36 @@
   img {
     padding-right: 10px;
   }
-  a {
-    display: block;
+  button {
     padding: 12px 8px;
-    text-decoration: none;
     font-size: 16px;
     color: rgba(255, 255, 255, 0.4);
     display: flex;
     font-family: 'DMSans', sans-serif;
     font-weight: 500;
     margin-bottom: 20px;
+    border-right: none;
+    border-top: none;
+    border-bottom: none;
+    border-left: 2px solid rgba(255, 255, 255, 0);
+    background-color: rgba(255, 255, 255, 0);
+    min-width: 260px;
   }
-  a:hover {
+  button:hover {
+    color: #f1f1f1;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-right: none;
+    border-top: none;
+    border-bottom: none;
+    border-left: solid 2px rgba(217, 14, 50, 1);
+  }
+  .active {
     color: #f1f1f1;
     background-color: rgba(255, 255, 255, 0.2);
     border-left: solid 2px rgba(217, 14, 50, 1);
   }
 }
-.active {
-  color: #f1f1f1;
-  background-color: rgba(255, 255, 255, 0.2);
-  border-left: solid 2px rgba(217, 14, 50, 1);
-}
+
 .visibility {
   display: inline;
 }

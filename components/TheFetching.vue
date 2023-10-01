@@ -3,6 +3,7 @@
     <div class="loader">
       <div class="car">
         <svg
+          class="svg-position"
           xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink"
           version="1.1"
@@ -172,7 +173,7 @@ export default {
   }
 }
 
-svg {
+.svg-position {
   position: relative;
   width: 150px;
   padding: 0 0 150px;
