@@ -25,7 +25,30 @@
         @get-value="getValue"
       >
         <template v-slot:image>
-          <img class="language-img" :src="setImage" alt="flag" />
+          <img
+            v-if="option.name === 'En'"
+            class="language-img"
+            src="../assets/images/En.svg"
+            alt="flag"
+          />
+          <img
+            v-if="option.name === 'De'"
+            class="language-img"
+            src="../assets/images/De.svg"
+            alt="flag"
+          />
+          <img
+            v-if="option.name === 'Pt'"
+            class="language-img"
+            src="../assets/images/Pt.svg"
+            alt="flag"
+          />
+          <img
+            v-if="option.name === 'Us'"
+            class="language-img"
+            src="../assets/images/Us.svg"
+            alt="flag"
+          />
         </template>
       </TheSelect>
     </div>
@@ -60,9 +83,6 @@ export default {
     function changeVisibility() {
       isVisible.value = !isVisible.value;
     }
-    const setImage = computed(() => {
-      return `/_nuxt/${option.value}.svg`;
-    });
 
     return {
       option,
