@@ -61,7 +61,7 @@ export default {
       isVisible.value = !isVisible.value;
     }
     const setImage = computed(() => {
-      return `../assets/images/${option.value}.svg`;
+      return `/_nuxt/${option.value}.svg`;
     });
 
     return {
