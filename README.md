@@ -1,10 +1,36 @@
-# Nuxt 3 Minimal Starter
+# Тестовое задание от компании "Центр программного обеспечения"
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+![Иллюстрация к проекту](https://github.com/AeolusG/swc-test-task/raw/main/assets/images/preview.jpg
 
-## Setup
+Задачи:
+- сверстать страницу по макету
+- получить список машин, воспользовавшись методом API
 
-Make sure to install the dependencies:
+Было выполнено:
+- верстка по макету
+- добавлена адаптивность до 768px (отдельной задачи для адаптива не было)
+- получение списка машин с сервера и их отображение
+В задании не был указан явный запрет на использование готовых библиотек компонентов, однако было решено не пользоваться вспомогательными средствами
+- селекты, модальные окна и пагинация кастомные
+- селект и модальное окно сделаны как переиспользуемые компоненты
+- пагинцая работает так, что общее количество страниц пересчитывается каждый раз, когда меняется условие в селекте
+- добавлена обработка ошибок
+- добавлен лоадер
+
+Технологии:
+- Vue3
+- Composition API
+- Nuxt3
+- HTML
+- CSS
+- Sass
+
+## Ссылка на Netlify
+
+https://warm-madeleine-d454a6.netlify.app/
+
+## Установка зависимостей
+
 
 ```bash
 # npm
@@ -18,58 +44,3 @@ yarn install
 
 # bun
 bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
