@@ -1,6 +1,6 @@
 # Тестовое задание от компании "Центр программного обеспечения"
 
-![Иллюстрация к проекту](https://github.com/AeolusG/swc-test-task/raw/main/assets/images/preview.jpg
+![Иллюстрация к проекту](https://github.com/AeolusG/swc-test-task/raw/main/assets/images/preview.jpg)
 
 Задачи:
 - сверстать страницу по макету
