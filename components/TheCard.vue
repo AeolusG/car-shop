@@ -42,7 +42,7 @@ export default {
     },
   },
   setup(props) {
-    const defaultImage = ref('/_nuxt/assets/images/mersedes 1.png');
+    const defaultImage = ref('../assets/images/mersedes 1.png');
     const defaultTitle = ref('Транспортное средство');
 
     const setImage = computed(() => {
