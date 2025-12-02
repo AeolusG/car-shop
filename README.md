@@ -28,7 +28,7 @@
 
 ## Ссылка на Netlify
 
-https://warm-madeleine-d454a6.netlify.app/
+https://car-shop-4253.netlify.app/
 
 ## Установка зависимостей
 
