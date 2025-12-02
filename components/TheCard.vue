@@ -50,6 +50,9 @@ export default {
     });
 
     const setTitle = computed(() => {
+      if (props.vehicleName === 'undefined undefined') {
+        return defaultTitle.value
+      }
       return props.vehicleName ?? defaultTitle.value;
     });
     const setClass = computed(() => {

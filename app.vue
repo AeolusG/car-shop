@@ -33,11 +33,11 @@
     <div class="no-data" v-if="!hasData">Nothing was found on your request</div>
     <div class="cards-container">
       <TheCard
+        v-for="car in list"
         :vehicleName="car.vehicle_name"
         :vin="car.vin"
         :photosCount="car.photos_count"
         :photo="car.photo?.url"
-        v-for="car in list"
         :key="car.id"
       />
     </div>

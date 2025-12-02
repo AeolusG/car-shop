@@ -26,27 +26,27 @@
       >
         <template v-slot:image>
           <img
-            v-if="option.name === 'En'"
+            v-if="option === 'En'"
             class="language-img"
             src="../assets/images/En.svg"
             alt="flag"
           />
           <img
-            v-if="option.name === 'De'"
+            v-if="option === 'Us'"
+            class="language-img"
+            src="../assets/images/Us.svg"
+            alt="flag"
+          />
+          <img
+            v-if="option === 'De'"
             class="language-img"
             src="../assets/images/De.svg"
             alt="flag"
           />
           <img
-            v-if="option.name === 'Pt'"
+            v-if="option === 'Pt'"
             class="language-img"
             src="../assets/images/Pt.svg"
-            alt="flag"
-          />
-          <img
-            v-if="option.name === 'Us'"
-            class="language-img"
-            src="../assets/images/Us.svg"
             alt="flag"
           />
         </template>
@@ -88,7 +88,6 @@ export default {
       option,
       optionsLang,
       getValue,
-      setImage,
       changeVisibility,
       isVisible,
       userInfo,
